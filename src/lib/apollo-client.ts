@@ -19,6 +19,7 @@ const cache = new InMemoryCache({
         },
         getFuzzyPokemon: {
           keyArgs: ["pokemon"],
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           merge(existing = [], incoming) {
             return incoming;
           },
