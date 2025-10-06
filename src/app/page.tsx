@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePokemonList, usePokemonSearch, useSeenPokemon, useDebounce, useInfiniteScroll } from '@/hooks';
-import { Header, Banner, PokemonCard, LoadingSpinner, ErrorMessage, EmptyState, SearchInput } from '@/components';
+import { usePokemonList, usePokemonSearch, useSeenPokemon, useDebounce } from '@/hooks';
+import { Header, Banner, PokemonCard, LoadingSpinner, ErrorMessage, EmptyState, SearchInput, VirtualizedPokemonGrid } from '@/components';
 import { WORDINGS } from '@/lib/wordings';
 import type { Pokemon, FuzzyPokemon } from '@/types/pokemon';
 
@@ -14,16 +14,10 @@ export default function Home() {
   const { searchResults, loading: searchLoading, searchPokemon, clearSearch } = usePokemonSearch();
   const { isSeenPokemon, toggleSeenPokemon } = useSeenPokemon();
 
-  const { observerTarget } = useInfiniteScroll({
-    onLoadMore: loadMore,
-    loading,
-    hasMore: !debouncedSearchTerm.trim(),
-    threshold: 200,
-  });
 
   useEffect(() => {
     if (debouncedSearchTerm.trim()) {
-      searchPokemon(debouncedSearchTerm, 20);
+      searchPokemon(debouncedSearchTerm, 10);
     } else {
       clearSearch();
     }
@@ -85,7 +79,18 @@ export default function Home() {
             />
           )}
 
-          {displayPokemon.length > 0 && (
+          {displayPokemon.length > 0 && !debouncedSearchTerm.trim() && (
+            <VirtualizedPokemonGrid
+              pokemon={displayPokemon}
+              isSeenPokemon={isSeenPokemon}
+              onToggleSeen={handleToggleSeen}
+              hasMore={!loading}
+              onLoadMore={loadMore}
+              loading={loading}
+            />
+          )}
+
+          {displayPokemon.length > 0 && debouncedSearchTerm.trim() && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {displayPokemon.map((poke: Pokemon | FuzzyPokemon) => (
                 <PokemonCard
@@ -103,15 +108,6 @@ export default function Home() {
           )}
 
 
-          {!debouncedSearchTerm.trim() && !loading && pokemon.length > 0 && (
-            <div ref={observerTarget}>
-              <LoadingSpinner
-                message={WORDINGS.HOME.LOADING_MORE_MESSAGE}
-                size="small"
-                className="py-8"
-              />
-            </div>
-          )}
         </div>
       </main>
 

@@ -9,3 +9,4 @@ export { SeenEmptyState } from './seen-empty-state';
 export { SeenHeader } from './seen-header';
 export { ConfirmationModal } from './confirmation-modal';
 export { SearchInput } from './search-input';
+export { VirtualizedPokemonGrid } from './virtualized-pokemon-grid';

@@ -2,6 +2,10 @@
 
 ¡Bienvenido al examen técnico para desarrolladores Frontend de Nilo! En este proyecto construirás un Pokédex moderno utilizando las tecnologías que manejamos en el equipo.
 
+## 🌐 Demo en Vivo
+
+**URL Productiva:** [https://nilo-fe-test.vercel.app/](https://nilo-fe-test.vercel.app/)
+
 ## 📋 Descripción del Proyecto
 
 PokeDex es una aplicación web que permite a los usuarios explorar el mundo Pokémon, buscar sus favoritos y mantener un registro de los Pokémon que han "visto". El proyecto utiliza la API GraphQL pública de [favware/graphql-pokemon](https://github.com/favware/graphql-pokemon).
