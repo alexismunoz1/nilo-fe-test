@@ -17,7 +17,7 @@ import type {
   GetFuzzyPokemonResponse 
 } from '@/types';
 
-export function usePokemonList(offset: number = 93, take: number = 10) {
+export const usePokemonList = (offset: number = 93, take: number = 10) => {
   const { data, loading, error, fetchMore, refetch } = useQuery<
     GetAllPokemonResponse,
     GetAllPokemonVariables
@@ -45,7 +45,7 @@ export function usePokemonList(offset: number = 93, take: number = 10) {
   };
 }
 
-export function usePokemonDetail() {
+export const usePokemonDetail = () => {
   const [getPokemon, { data, loading, error }] = useLazyQuery<
     GetPokemonResponse,
     GetPokemonVariables
@@ -65,7 +65,7 @@ export function usePokemonDetail() {
   };
 }
 
-export function usePokemonSearch() {
+export const usePokemonSearch = () => {
   const [searchResults, setSearchResults] = useState<FuzzyPokemon[]>([]);
   const [getFuzzyPokemon, { data, loading, error }] = useLazyQuery<
     GetFuzzyPokemonResponse,

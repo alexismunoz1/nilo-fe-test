@@ -10,7 +10,7 @@ import {
   clearSeenPokemon,
 } from '@/lib/local-storage';
 
-export function useSeenPokemon() {
+export const useSeenPokemon = () => {
   const [seenPokemon, setSeenPokemonState] = useState<SeenPokemon[]>([]);
   const [count, setCount] = useState(0);
 

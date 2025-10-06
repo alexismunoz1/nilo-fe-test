@@ -5,6 +5,10 @@ import { ApolloProviderWrapper } from '@/lib/apollo-provider'
 export const metadata: Metadata = {
   title: 'PokeDex - Nilo Challenge',
   description: 'Explora el mundo de Pokémon, descubre sus habilidades únicas y construye tu colección',
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/apple-touch-icon.png',
+  },
 }
 
 export default function RootLayout({

@@ -1,6 +1,6 @@
 import type { TypeBadgeProps } from '@/types';
 
-export default function TypeBadge({ typeName }: TypeBadgeProps) {
+export const TypeBadge = ({ typeName }: TypeBadgeProps) => {
   const getTypeColor = (type: string): string => {
     const colors: { [key: string]: string } = {
       normal: 'bg-gray-400',

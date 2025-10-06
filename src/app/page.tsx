@@ -1,13 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePokemonList, usePokemonSearch } from '@/hooks/use-pokemon-list';
-import { useSeenPokemon } from '@/hooks/use-seen-pokemon';
-import { useDebounce } from '@/hooks/use-debounce';
-import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
-import Header from '@/components/header';
-import Banner from '@/components/banner';
-import PokemonCard from '@/components/pokemon-card';
+import { usePokemonList, usePokemonSearch, useSeenPokemon, useDebounce, useInfiniteScroll } from '@/hooks';
+import { Header, Banner, PokemonCard, LoadingSpinner, ErrorMessage, EmptyState, SearchInput } from '@/components';
 import { WORDINGS } from '@/lib/wordings';
 import type { Pokemon, FuzzyPokemon } from '@/types/pokemon';
 
@@ -37,10 +32,6 @@ export default function Home() {
   const displayPokemon = debouncedSearchTerm.trim() ? searchResults : pokemon;
   const isLoading = debouncedSearchTerm.trim() ? searchLoading : loading;
 
-  useEffect(() => {
-    console.log('Display Pokemon:', displayPokemon.length, 'Search Term:', debouncedSearchTerm);
-  }, [displayPokemon, debouncedSearchTerm]);
-
   const handleToggleSeen = (poke: Pokemon | FuzzyPokemon) => {
     const wasSeen = isSeenPokemon(poke.key);
     toggleSeenPokemon(poke);
@@ -66,28 +57,11 @@ export default function Home() {
           </div>
 
           <div className="mb-8">
-            <div className="relative max-w-6xl mx-auto">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder={WORDINGS.HOME.SEARCH_PLACEHOLDER}
-                className="w-full px-12 py-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <svg
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
+            <SearchInput
+              value={searchTerm}
+              onChange={setSearchTerm}
+              placeholder={WORDINGS.HOME.SEARCH_PLACEHOLDER}
+            />
           </div>
 
           <div className="text-center mb-6">
@@ -101,21 +75,14 @@ export default function Home() {
 
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center">
-              {WORDINGS.COMMON.ERROR_MESSAGE}: {error}
-            </div>
+            <ErrorMessage message={`${WORDINGS.COMMON.ERROR_MESSAGE}: ${error}`} />
           )}
 
           {!isLoading && displayPokemon.length === 0 && debouncedSearchTerm.trim() && (
-            <div className="text-center py-12">
-              <div className="text-gray-400 mb-4">
-                <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">{WORDINGS.HOME.NO_POKEMON_FOUND_TITLE}</h3>
-              <p className="text-gray-500">{WORDINGS.HOME.NO_POKEMON_FOUND_MESSAGE}</p>
-            </div>
+            <EmptyState
+              title={WORDINGS.HOME.NO_POKEMON_FOUND_TITLE}
+              message={WORDINGS.HOME.NO_POKEMON_FOUND_MESSAGE}
+            />
           )}
 
           {displayPokemon.length > 0 && (
@@ -132,17 +99,17 @@ export default function Home() {
           )}
 
           {isLoading && (
-            <div className="text-center text-blue-600 py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-4">{WORDINGS.HOME.LOADING_MESSAGE}</p>
-            </div>
+            <LoadingSpinner message={WORDINGS.HOME.LOADING_MESSAGE} />
           )}
 
 
           {!debouncedSearchTerm.trim() && !loading && pokemon.length > 0 && (
-            <div ref={observerTarget} className="py-8 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-2 text-gray-600 text-sm">{WORDINGS.HOME.LOADING_MORE_MESSAGE}</p>
+            <div ref={observerTarget}>
+              <LoadingSpinner
+                message={WORDINGS.HOME.LOADING_MORE_MESSAGE}
+                size="small"
+                className="py-8"
+              />
             </div>
           )}
         </div>

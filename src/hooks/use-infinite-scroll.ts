@@ -9,12 +9,12 @@ interface UseInfiniteScrollProps {
   threshold?: number;
 }
 
-export function useInfiniteScroll({
+export const useInfiniteScroll = ({
   onLoadMore,
   loading,
   hasMore,
   threshold = 200
-}: UseInfiniteScrollProps) {
+}: UseInfiniteScrollProps) => {
   const observerTarget = useRef<HTMLDivElement>(null);
 
   const handleObserver = useCallback(

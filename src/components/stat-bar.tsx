@@ -2,7 +2,7 @@ import { calculateStatPercentage } from '@/lib/utils';
 import { COLORS } from '@/lib/constants';
 import type { StatBarProps } from '@/types';
 
-export default function StatBar({ label, value, maxValue = 200 }: StatBarProps) {
+export const StatBar = ({ label, value, maxValue = 200 }: StatBarProps) => {
   const percentage = calculateStatPercentage(value, maxValue);
 
   return (
@@ -16,7 +16,7 @@ export default function StatBar({ label, value, maxValue = 200 }: StatBarProps) 
       <div className="flex-1 bg-gray-200 rounded-full h-1">
         <div
           className="h-1 rounded-full"
-          style={{ 
+          style={{
             width: `${percentage}%`,
             backgroundColor: COLORS.STAT_BAR
           }}

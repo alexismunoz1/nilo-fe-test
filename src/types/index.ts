@@ -52,3 +52,59 @@ export interface PokemonCardBaseProps {
   isSeen: boolean;
   onToggleSeen: () => void;
 }
+
+export interface LoadingSpinnerProps {
+  message?: string;
+  size?: 'small' | 'medium' | 'large';
+  className?: string;
+}
+
+export interface ErrorMessageProps {
+  message: string;
+  className?: string;
+}
+
+export interface EmptyStateProps {
+  title: string;
+  message: string;
+  icon?: 'search';
+  className?: string;
+}
+
+export interface BackButtonProps {
+  label: string;
+  onClick: () => void;
+  className?: string;
+}
+
+export interface SeenEmptyStateProps {
+  title: string;
+  message: string;
+  buttonLabel: string;
+  onButtonClick: () => void;
+}
+
+export interface SeenHeaderProps {
+  description: string;
+  subtitle: string;
+  buttonLabel: string;
+  onButtonClick: () => void;
+}
+
+export interface ConfirmationModalProps {
+  isOpen: boolean;
+  title: string;
+  message: string;
+  cancelButtonLabel: string;
+  confirmButtonLabel: string;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
+export interface SearchInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+  className?: string;
+  icon?: boolean;
+}
