@@ -10,3 +10,5 @@ export { SeenHeader } from './seen-header';
 export { ConfirmationModal } from './confirmation-modal';
 export { SearchInput } from './search-input';
 export { VirtualizedPokemonGrid } from './virtualized-pokemon-grid';
+export { PokemonImagePlaceholder } from './pokemon-image-placeholder';
+export { PokemonToggleButton } from './pokemon-toggle-button';

@@ -80,14 +80,14 @@ export default function Home() {
           )}
 
           {displayPokemon.length > 0 && !debouncedSearchTerm.trim() && (
-            <VirtualizedPokemonGrid
-              pokemon={displayPokemon}
-              isSeenPokemon={isSeenPokemon}
-              onToggleSeen={handleToggleSeen}
-              hasMore={!loading}
-              onLoadMore={loadMore}
-              loading={loading}
-            />
+              <VirtualizedPokemonGrid
+                pokemon={displayPokemon}
+                isSeenPokemon={isSeenPokemon}
+                onToggleSeen={handleToggleSeen}
+                hasMore={!loading}
+                onLoadMore={loadMore}
+                loading={loading}
+              />
           )}
 
           {displayPokemon.length > 0 && debouncedSearchTerm.trim() && (
@@ -101,7 +101,7 @@ export default function Home() {
                 />
               ))}
             </div>
-          )}
+          )} 
 
           {isLoading && (
             <LoadingSpinner message={WORDINGS.HOME.LOADING_MESSAGE} />

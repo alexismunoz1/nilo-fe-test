@@ -96,7 +96,7 @@ export const VirtualizedPokemonGrid = ({
                 transform: `translateY(${virtualRow.start}px)`,
               }}
             >
-              <div className="grid gap-6 p-3" style={{
+              <div className="grid gap-8" style={{
                 gridTemplateColumns: `repeat(${columnsPerRow}, 1fr)`,
                 height: '100%',
               }}>
